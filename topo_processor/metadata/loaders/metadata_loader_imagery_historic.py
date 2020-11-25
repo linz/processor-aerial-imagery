@@ -4,7 +4,7 @@ from typing import Dict
 
 from topo_processor.metadata.data_type import DataType
 from topo_processor.metadata.item import Item
-from topo_processor.util import is_tiff
+from topo_processor.util import check_for_number, is_tiff
 
 from .metadata_loader import MetadataLoader
 
@@ -30,19 +30,19 @@ class MetadataLoaderImageryHistoric(MetadataLoader):
             raise Exception(f"{item_path_basename} cannot be found in the csv.")
         item_dict = self.csv_dict[item_path_basename]
         properties = {
-            "linz:sufi": item_dict["sufi"],
-            "linz:survey": item_dict["survey"],
-            "linz:run": item_dict["run"],
-            "linz:photo_no": item_dict["photo_no"],
-            "linz:alternate_survey_name": item_dict["alternate_survey_name"],
-            "linz:camera": item_dict["camera"],
-            "linz:nominal_focal_length": item_dict["nominal_focal_length"],
-            "linz:altitude": item_dict["altitude"],
-            "linz:scale": item_dict["scale"],
-            "linz:date": item_dict["date"],
-            "linz:format": item_dict["format"],
-            "linz:released_filename": item_dict["released_filename"],
-            "linz:photo_version": item_dict["photo_version"],
+            "linz:sufi": check_for_number(item_dict["sufi"]),
+            "linz:survey": check_for_number(item_dict["survey"]),
+            "linz:run": check_for_number(item_dict["run"]),
+            "linz:photo_no": check_for_number(item_dict["photo_no"]),
+            "linz:alternate_survey_name": check_for_number(item_dict["alternate_survey_name"]),
+            "linz:camera": check_for_number(item_dict["camera"]),
+            "linz:nominal_focal_length": check_for_number(item_dict["nominal_focal_length"]),
+            "linz:altitude": check_for_number(item_dict["altitude"]),
+            "linz:scale": check_for_number(item_dict["scale"]),
+            "linz:date": check_for_number(item_dict["date"]),
+            "linz:format": check_for_number(item_dict["format"]),
+            "linz:released_filename": check_for_number(item_dict["released_filename"]),
+            "linz:photo_version": check_for_number(item_dict["photo_version"]),
         }
         item.stac_item.properties.update(properties)
 
